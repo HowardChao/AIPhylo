@@ -1,0 +1,9 @@
+.DS_Store
+GPU_workstation_survey/
+Y_test.npy
+X_test.npy
+.ipynb_checkpoints/
+BenchmarkAlignments-master/
+training/
+training_data.npy
+training_dists.npy
