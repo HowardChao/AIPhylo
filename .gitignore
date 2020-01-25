@@ -7,3 +7,4 @@ BenchmarkAlignments-master/
 training/
 training_data.npy
 training_dists.npy
+CNN_model_03.h5
