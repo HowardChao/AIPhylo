@@ -14,46 +14,34 @@ import sys
 np.set_printoptions(threshold=sys.maxsize)
 
 def main():
-    whole_data = np.load('/floyd/home/DATA/aiphylo_big_df/training_data.npy')
-    whole_labels_cub = np.load('/floyd/home/DATA/aiphylo_big_df/training_dists_cub.npy')
-    whole_labels_flatten = np.load('/floyd/home/DATA/aiphylo_big_df/training_dists_flatten.npy')
+    training_data = np.load('/floyd/home/DATA/aiphylo/phylo_training_data.npy')
+    training_labels = np.load('/floyd/home/DATA/aiphylo/phylo_training_dists_500_5050.npy')
     
     BRANCH_NUM = 100
     SEQUENCE_LEN = 1000
     OUTPUT_DIST_NUM = int((BRANCH_NUM - 1) * BRANCH_NUM / 2)
-    
-    print(whole_data.shape)
-    print(whole_labels_cub.shape)
-    print(whole_labels_flatten.shape)
 
-    samples_count = whole_data.shape[0]
 
-    train_size = math.floor(0.85*whole_data.shape[0])
+    samples_count = training_data.shape[0]
+
+    train_size = math.floor(0.85*training_data.shape[0])
 
     shuffle_indices = random.sample(range(0, samples_count), samples_count)
 
     indices_train = shuffle_indices[0:train_size]
     indices_test = shuffle_indices[train_size:samples_count]
 
-    print("######## Training Data ########")
-    X_train = whole_data[indices_train,:]
-    Y_train_cub = whole_labels_cub[indices_train]
-    Y_train_flatten = whole_labels_flatten[indices_train]
+    X_train = training_data[indices_train,:]
+    Y_train = training_labels[indices_train]
 
-    print("######## Validation Data ########")
-    X_test = whole_data[indices_test,:]
-    Y_test_cub = whole_labels_cub[indices_test]
-    Y_test_flatten = whole_labels_flatten[indices_test]
+    X_test = training_data[indices_test,:]
+    Y_test = training_labels[indices_test]
 
     print('X_train.shape : ', X_train.shape)
-    print('X_test.shape : ', Y_train_cub.shape)
+    print('X_test.shape : ', X_test.shape)
 
-    print('Y_train_cub.shape : ', Y_train_cub.shape)
-    print('Y_test_cub.shape : ', Y_test_cub.shape)
-    print('Y_train_flatten.shape : ', Y_train_flatten.shape)
-    print('Y_test_flatten.shape : ', Y_test_flatten.shape)
-    
-    
+    print('Y_train.shape : ', Y_train.shape)
+    print('Y_test.shape : ', Y_test.shape)
     
     model = Sequential()
 
@@ -91,7 +79,7 @@ def main():
     # Compile 
     model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
 
-    history = model.fit(X_train, Y_train_flatten, validation_data=(X_test, Y_test_flatten), batch_size=20, epochs=1, verbose=1)
+    history = model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=20, epochs=1, verbose=1)
     model.save('./output/CNN_model.h5')
 
     train_result = model.evaluate(X_train, Y_train)
