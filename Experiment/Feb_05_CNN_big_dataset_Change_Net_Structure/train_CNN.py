@@ -94,8 +94,8 @@ def main():
     history = model.fit(X_train, Y_train_flatten, validation_data=(X_test, Y_test_flatten), batch_size=20, epochs=1, verbose=1)
     model.save('./output/CNN_model.h5')
 
-    train_result = model.evaluate(X_train, Y_train)
-    test_result = model.evaluate(X_test, Y_test)
+    train_result = model.evaluate(X_train, Y_train_flatten)
+    test_result = model.evaluate(X_test, Y_test_flatten)
     print("Train Acc: ", train_result)
     print("Test Acc: ", test_result)
 
