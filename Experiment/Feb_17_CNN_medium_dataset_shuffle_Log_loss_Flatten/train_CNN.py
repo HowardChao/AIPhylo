@@ -15,8 +15,8 @@ import sys
 import numpy
 
 def main():
-    whole_data = np.load('../../Data_Preprocessing/output/500_Dataset/training_data.npy')
-    whole_labels_flatten = np.load('../../Data_Preprocessing/output/500_Dataset/training_dists_flatten.npy')
+    whole_data = np.load('../../Data_Preprocessing/output/5000_Dataset/training_data.npy')
+    whole_labels_flatten = np.load('../../Data_Preprocessing/output/5000_Dataset/training_dists_flatten.npy')
     
     BRANCH_NUM = 100
     SEQUENCE_LEN = 1000
@@ -119,10 +119,7 @@ def main():
     model.add(Flatten())
     model.add(Dense(OUTPUT_DIST_NUM, activation='relu'))
     
-    model_summary = model.summary()
-    f = open("model_summary.txt", "a")
-    f.write(model_summary)
-    f.close()
+    model.summary()
     
     # (4) Compile 
     model.compile(loss='mean_squared_logarithmic_error', optimizer='adam', metrics=['accuracy'])
