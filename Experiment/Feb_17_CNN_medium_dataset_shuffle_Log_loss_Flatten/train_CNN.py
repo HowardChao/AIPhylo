@@ -27,7 +27,7 @@ def main():
     ##########################################
     whole_data_before_shuffle = whole_data.reshape((whole_data.shape[0]*100, 1000))
     plt.imshow(whole_data_before_shuffle, cmap='hot', interpolation='nearest', aspect='auto')
-    plt.savefig('./output/fig/Plot_before_shuffle.png')
+    plt.savefig('./fig/Plot_before_shuffle.png')
     
     # Shuffle with the same index
     shuffle_indices_100 = random.sample(range(0, 100), 100)
@@ -42,7 +42,7 @@ def main():
     #########################################
     whole_data_after_shuffle = whole_data.reshape((whole_data.shape[0]*100, 1000))
     plt.imshow(whole_data_after_shuffle, cmap='hot', interpolation='nearest', aspect='auto')
-    plt.savefig('./output/fig/Plot_after_shuffle.png')
+    plt.savefig('./fig/Plot_after_shuffle.png')
     
     # Shuffle sample index
     samples_count = whole_data.shape[0]
@@ -70,14 +70,14 @@ def main():
     #######################################
     X_train_shuffle = X_train.reshape((X_train.shape[0]*100, 1000))
     plt.imshow(X_train_shuffle, cmap='hot', interpolation='nearest', aspect='auto')
-    plt.savefig('./output/fig/Plot_before_shuffle_samples.png')
+    plt.savefig('./fig/Plot_before_shuffle_samples.png')
 
     ######################################
     #### Plot after shuffle (X_train) ####
     ######################################
     X_test_shuffle = X_test.reshape((X_test.shape[0]*100, 1000))
     plt.imshow(X_test_shuffle, cmap='hot', interpolation='nearest', aspect='auto')
-    plt.savefig('./output/fig/Plot_after_shuffle_samples.png')
+    plt.savefig('./fig/Plot_after_shuffle_samples.png')
     
     np.save('./output/X_train.npy', X_train)
     np.save('./output/Y_train_flatten.npy', Y_train_flatten)
