@@ -15,3 +15,4 @@ CNN_model_35_epochs.h5
 output
 nohup.out
 DATA/
+Data_Preprocessing/output.tar.gz
