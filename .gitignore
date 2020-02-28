@@ -16,3 +16,4 @@ output
 nohup.out
 DATA/
 Data_Preprocessing/output.tar.gz
+ALL_DATA
