@@ -3,16 +3,16 @@ import os
 import copy
 from .Bandelt_Node import Bandelt_Node
 
-def post_order_traversal_num_2_name(current_node, file_path, file_base_name, mapping_dic_dic_decode):
+def post_order_traversal_num_2_name(current_node, file_base_name, mapping_dic_dic_decode):
     if current_node.left != None:
-        left_newick_string = post_order_traversal_num_2_name(current_node.left, file_path, file_base_name, mapping_dic_dic_decode)
+        left_newick_string = post_order_traversal_num_2_name(current_node.left, file_base_name, mapping_dic_dic_decode)
     if current_node.right != None:
-        right_newick_string = post_order_traversal_num_2_name(current_node.right, file_path, file_base_name, mapping_dic_dic_decode)
+        right_newick_string = post_order_traversal_num_2_name(current_node.right, file_base_name, mapping_dic_dic_decode)
     if current_node.data < 0:
         current_node.data = ''
 #         pass
     elif current_node.data >= 0:
-        current_node.data = mapping_dic_dic_decode[os.path.join(file_path, file_base_name+'.nex')][int(current_node.data)]
+        current_node.data = mapping_dic_dic_decode[os.path.join(file_base_name+'.nex')][int(current_node.data)]
         
 
 def post_order_traversal_newick_string(current_node):
@@ -35,7 +35,7 @@ def post_order_traversal_newick_string(current_node):
     return newick_string
 
 
-def Bandelt_Decode(Bandelt_Encode_list, file_path, file_base_name, mapping_dic_dic_decode):
+def Bandelt_Decode(Bandelt_Encode_list, file_base_name, mapping_dic_dic_decode):
     BANDELT_NUM = len(Bandelt_Encode_list)
     # Initial with three nodes
     root_node = Bandelt_Node(sys.maxsize)
@@ -80,7 +80,7 @@ def Bandelt_Decode(Bandelt_Encode_list, file_path, file_base_name, mapping_dic_d
             added_node_neg.left = added_node_pos
             added_node_pos.parent = added_node_neg
     copy_root_node = copy.deepcopy(root_node)
-    post_order_traversal_num_2_name(copy_root_node, file_path, file_base_name, mapping_dic_dic_decode)
+    post_order_traversal_num_2_name(copy_root_node, file_base_name, mapping_dic_dic_decode)
     decode_tree = post_order_traversal_newick_string(copy_root_node)
     decode_tree_newick = decode_tree + ';'
     return (root_node, decode_tree_newick)
