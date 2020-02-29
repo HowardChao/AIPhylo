@@ -87,7 +87,6 @@ def inner_node_indexation(current_node):
 
 def Bandelt_Encode(file_path, file_name, mapping_dic_dic):
     tree = Phylo.read(os.path.join(file_path, file_name+'.nex.treefile'), 'newick')
-#     Phylo.draw(tree)
     
     # This is the root
     root_node = Bandelt_Node(sys.maxsize)
